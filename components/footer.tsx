@@ -23,7 +23,7 @@ export function Footer() {
       </a>
       <a
         className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-        href="https://github.com/mozzius"
+        href="https://github.com/knotbin"
         target="_blank"
         rel="noopener noreferrer"
       >
