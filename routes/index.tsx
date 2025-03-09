@@ -12,7 +12,6 @@ const stupidSelfDeprecatingTaglinesToTryToPretendImSelfAware = [
   "isn't a real word",
   "enjoys each protocol equally",
   "is having a very semantic argument",
-  "fellas is it gay to write unit tests?",
   "wrote these derivitive taglines",
   "is way too into css animations",
   "uses dark mode at noon",
@@ -27,7 +26,6 @@ const stupidSelfDeprecatingTaglinesToTryToPretendImSelfAware = [
   "wants to be included in discourse",
   "is deeply offended by semicolons",
   "is morraly opposed to touching grass",
-  "uses inline css (sue me)",
 ];
 
 function getRandomTagline() {
