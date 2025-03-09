@@ -7,6 +7,7 @@ import { PostInfo } from "../../components/post-info.tsx";
 import { Title } from "../../components/typography.tsx";
 import { getPost } from "../../lib/api.ts";
 import { Head } from "$fresh/runtime.ts";
+import { BlueskyComments } from "npm:bluesky-comments";
 
 interface Post {
   uri: string;
@@ -145,6 +146,7 @@ export default function BlogPage({ data: post }: PageProps<Post>) {
               />
             </div>
           </article>
+          
         </main>
         <Footer />
       </div>

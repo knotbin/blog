@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,400;0,700;1,400&display=swap');
 @font-face {
   font-family: 'Berkeley Mono';
   src: url('/path/to/local/fonts/BerkeleyMono-Regular.woff2') format('woff2'),
@@ -26,6 +26,7 @@
 .font-sans { font-family: var(--font-sans); }
 .font-serif { font-family: var(--font-serif); }
 .font-mono { font-family: var(--font-mono); }
+.font-serif-italic { font-family: var(--font-serif); font-style: italic;}
 
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
