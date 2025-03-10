@@ -32,8 +32,7 @@ export function PostInfo({
       )}
       {createdAt && (
         <>
-          <time dateTime={createdAt}>{date(new Date(createdAt))}</time>{" "}
-          &middot;{" "}
+          <time dateTime={createdAt}>{date(new Date(createdAt))}</time>
         </>
       )}
       {children}
