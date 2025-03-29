@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY . .
 RUN deno cache main.ts
+RUN mkdir -p node_modules/.cache && chmod -R 777 node_modules/.cache
 RUN deno task build
 
 USER deno
