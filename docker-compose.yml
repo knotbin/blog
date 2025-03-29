@@ -5,7 +5,7 @@ services:
     volumes:
       - .:/app
     ports:
-      - "8000:8000"
+      - "8001:8000"
     environment:
       - DENO_ENV=development
     command: ["deno", "run", "-A", "main.ts"]
