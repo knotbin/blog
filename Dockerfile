@@ -10,4 +10,4 @@ RUN deno task build
 USER deno
 EXPOSE 8000
 
-CMD ["run", "-A", "main.ts"]
+CMD ["run", "--allow-read",  "--allow-run", "--allow-write", "--allow-net", "main.ts"]
