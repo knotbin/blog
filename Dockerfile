@@ -1,6 +1,7 @@
 FROM denoland/deno:ubuntu
 
-WORKDIR /app
+WORKDIR /deno-dir/
+RUN chown -R deno:deno /deno-dir
 
 COPY . .
 RUN deno cache main.ts
