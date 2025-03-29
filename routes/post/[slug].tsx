@@ -7,7 +7,6 @@ import { PostInfo } from "../../components/post-info.tsx";
 import { Title } from "../../components/typography.tsx";
 import { getPost } from "../../lib/api.ts";
 import { Head } from "$fresh/runtime.ts";
-import { CommentSection } from "../../islands/CommentSection.tsx";
 
 interface Post {
   uri: string;
@@ -146,9 +145,6 @@ export default function BlogPage({ data: post }: PageProps<Post>) {
               />
             </div>
           </article>
-          <CommentSection
-            author="knotbin.xyz"
-          />
         </main>
         <Footer />
       </div>

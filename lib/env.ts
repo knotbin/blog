@@ -6,7 +6,7 @@ const envVars = {
   PLAUSIBLE_DOMAIN: "https://plausible.knotbin.xyz",
   PLAUSIBLE_API_KEY: "",
   NEXT_PUBLIC_BSKY_DID: "did:plc:6hbqm2oftpotwuw7gvvrui3i",
-  NEXT_PUBLIC_BSKY_PDS: "https://puffball.us-east.host.bsky.network",
+  NEXT_PUBLIC_BSKY_PDS: "https://knotbin.xyz",
 };
 
 // Use cleanEnv to validate and parse the environment variables
@@ -21,6 +21,6 @@ export const env = cleanEnv(envVars, {
   PLAUSIBLE_API_KEY: str({ default: "" }),
   NEXT_PUBLIC_BSKY_DID: str({ default: "did:plc:6hbqm2oftpotwuw7gvvrui3i" }),
   NEXT_PUBLIC_BSKY_PDS: url({
-    default: "https://puffball.us-east.host.bsky.network",
+    default: "https://knotbin.xyz",
   }),
 });
