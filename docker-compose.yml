@@ -8,4 +8,4 @@ services:
       - "8000:8000"
     environment:
       - DENO_ENV=development
-    command: ["deno", "run", "--watch", "--allow-net", "main.ts"]
+    command: ["deno", "run", "-A", "main.ts"]
