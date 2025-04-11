@@ -1,4 +1,4 @@
-FROM denoland/deno:ubuntu
+FROM denoland/deno:latest
 
 WORKDIR /deno-dir/
 
