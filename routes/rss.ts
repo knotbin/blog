@@ -15,8 +15,8 @@ export async function GET() {
 
   const rss = new RSS({
     title: "knotbin",
-    feed_url: "https://knotbin.xyz/rss",
-    site_url: "https://knotbin.xyz",
+    feed_url: "https://knotbin.com/rss",
+    site_url: "https://knotbin.com",
     description: "a webbed site",
   });
 
@@ -30,7 +30,7 @@ export async function GET() {
         .use(rehypeStringify)
         .process(post.value.content)
         .then((v) => v.toString()),
-      url: `https://knotbin.xyz/post/${post.uri.split("/").pop()}`,
+      url: `https://knotbin.com/post/${post.uri.split("/").pop()}`,
       date: new Date(post.value.createdAt ?? Date.now()),
     });
   }

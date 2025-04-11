@@ -36,8 +36,7 @@ export function BlueskyPostEmbed({ uri }: { uri: string }) {
     };
   }, [id]);
 
-  const ref_url =
-    "https://" + "knotbin.xyz/post/" + uri.split("/").pop();
+  const ref_url = "https://" + "knotbin.com/post/" + uri.split("/").pop();
 
   const searchParams = new URLSearchParams();
   searchParams.set("id", id);
