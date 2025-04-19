@@ -141,8 +141,12 @@ export default function BlogPage({ data: post }: PageProps<Post>) {
               <div class="[&>.bluesky-embed]:mt-8 [&>.bluesky-embed]:mb-0">
                 <div
                   class="mt-8 markdown-body"
+                  // replace old pds url with new one for blob urls
                   dangerouslySetInnerHTML={{
-                    __html: render(post.value.content),
+                    __html: render(post.value.content).replace(
+                      /puffball\.us-east\.host\.bsky\.network/g,
+                      "knotbin.xyz",
+                    ),
                   }}
                 />
               </div>
