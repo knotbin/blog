@@ -17,7 +17,7 @@ export default function About() {
 
             <div class="prose prose-slate dark:prose-invert space-y-8">
               <p>
-                I'm a fifteen year old software developer. I'm experienced in
+                I'm a fifteen year-old software developer. I'm experienced in
                 iOS development, and a winner of the 2024 Apple Swift Student
                 Challenge. I'm very interested in decentralized systems and AT
                 Protocol in particular. I love designing and building beautiful
