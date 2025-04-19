@@ -11,4 +11,4 @@ RUN deno task build
 
 EXPOSE 8000
 
-CMD ["run", "-A", "--allow-all", "main.ts"]
+CMD ["run", "-A", "main.ts"]
