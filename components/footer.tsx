@@ -4,9 +4,9 @@ import { env } from "../lib/env.ts";
 
 export function Footer() {
   return (
-    <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
+    <footer class="py-8 flex gap-6 flex-wrap items-center justify-center text-sm">
       <a
-        className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+        class="flex items-center gap-2 hover:underline hover:underline-offset-4"
         href={`https://bsky.app/profile/${env.NEXT_PUBLIC_BSKY_DID}`}
         target="_blank"
         rel="noopener noreferrer"
@@ -15,14 +15,14 @@ export function Footer() {
           width={16}
           height={16}
           viewBox="0 0 24 24"
-          className="fill-black dark:fill-white"
+          class="fill-black dark:fill-white"
         >
           <path d={BlueskyIcon.path} />
         </svg>
         Bluesky
       </a>
       <a
-        className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+        class="flex items-center gap-2 hover:underline hover:underline-offset-4"
         href="https://github.com/knotbin"
         target="_blank"
         rel="noopener noreferrer"
@@ -31,7 +31,7 @@ export function Footer() {
           width={16}
           height={16}
           viewBox="0 0 24 24"
-          className="fill-black dark:fill-white"
+          class="fill-black dark:fill-white"
         >
           <path d={GithubIcon.path} />
         </svg>

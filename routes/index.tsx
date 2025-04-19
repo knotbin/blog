@@ -1,7 +1,7 @@
-import { Footer } from "../components/footer.tsx";
 import PostList from "../islands/post-list.tsx";
 import { Title } from "../components/typography.tsx";
 import { getPosts } from "../lib/api.ts";
+import { Layout } from "../islands/layout.tsx";
 
 export const dynamic = "force-static";
 export const revalidate = 3600; // 1 hour
@@ -29,7 +29,12 @@ const stupidSelfDeprecatingTaglinesToTryToPretendImSelfAware = [
 ];
 
 function getRandomTagline() {
-  return stupidSelfDeprecatingTaglinesToTryToPretendImSelfAware[Math.floor(Math.random() * stupidSelfDeprecatingTaglinesToTryToPretendImSelfAware.length)];
+  return stupidSelfDeprecatingTaglinesToTryToPretendImSelfAware[
+    Math.floor(
+      Math.random() *
+        stupidSelfDeprecatingTaglinesToTryToPretendImSelfAware.length,
+    )
+  ];
 }
 
 export default async function Home() {
@@ -37,24 +42,18 @@ export default async function Home() {
   const tagline = getRandomTagline();
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-dvh p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start w-full max-w-[600px]">
-        <div className="self-center flex flex-col">
-            <div className="relative">
-              <Title className="m-0 mb-6 font-serif-italic text-4xl sm:text-5xl lowercase">
-              knotbin
-              </Title>
-                <span className="absolute bottom-3 -right-2 font-bold text-xs opacity-50 text-right whitespace-nowrap">
-              {tagline}
-              </span>
-            </div>
-        </div>
+    <Layout>
+      <div class="p-8 pb-20 gap-16 sm:p-20">
+        <div class="max-w-[600px] mx-auto">
+          <Title class="font-serif-italic text-4xl sm:text-5xl lowercase mb-12">
+            Knotbin
+          </Title>
 
-        <div className="flex flex-col gap-4 w-full">
-          <PostList posts={posts} />
+          <div class="space-y-4 w-full">
+            <PostList posts={posts} />
+          </div>
         </div>
-      </main>
-      <Footer />
-    </div>
+      </div>
+    </Layout>
   );
 }

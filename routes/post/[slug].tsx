@@ -2,7 +2,7 @@
 import { CSS, render } from "@deno/gfm";
 import { Handlers, PageProps } from "$fresh/server.ts";
 
-import { Footer } from "../../components/footer.tsx";
+import { Layout } from "../../islands/layout.tsx";
 import { PostInfo } from "../../components/post-info.tsx";
 import { Title } from "../../components/typography.tsx";
 import { getPost } from "../../lib/api.ts";
@@ -117,37 +117,39 @@ export default function BlogPage({ data: post }: PageProps<Post>) {
         />
       </Head>
 
-      <div className="grid grid-rows-[20px_1fr_20px] justify-items-center min-h-dvh py-8 px-4 xs:px-8 pb-20 gap-16 sm:p-20">
-        <link rel="alternate" href={post.uri} />
-        <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start w-full max-w-[600px] overflow-hidden">
-          <article className="w-full space-y-8">
-            <div className="space-y-4 w-full">
-              <a
-                href="/"
-                className="hover:underline hover:underline-offset-4 font-medium"
-              >
-                Back
-              </a>
-              <Title>{post.value.title}</Title>
-              <PostInfo
-                content={post.value.content}
-                createdAt={post.value.createdAt}
-                includeAuthor
-                className="text-sm"
-              />
-              <div className="diagonal-pattern w-full h-3" />
-            </div>
-            <div className="[&>.bluesky-embed]:mt-8 [&>.bluesky-embed]:mb-0">
-              {/* Render GFM HTML via dangerouslySetInnerHTML */}
-              <div
-                class="mt-8 markdown-body"
-                dangerouslySetInnerHTML={{ __html: render(post.value.content) }}
-              />
-            </div>
-          </article>
-        </main>
-        <Footer />
-      </div>
+      <Layout>
+        <div class="p-8 pb-20 gap-16 sm:p-20">
+          <link rel="alternate" href={post.uri} />
+          <div class="max-w-[600px] mx-auto">
+            <a
+              href="/"
+              class="hover:underline hover:underline-offset-4 font-medium block mb-8"
+            >
+              Back
+            </a>
+            <article class="w-full space-y-8">
+              <div class="space-y-4 w-full">
+                <Title>{post.value.title}</Title>
+                <PostInfo
+                  content={post.value.content}
+                  createdAt={post.value.createdAt}
+                  includeAuthor
+                  class="text-sm"
+                />
+                <div class="diagonal-pattern w-full h-3" />
+              </div>
+              <div class="[&>.bluesky-embed]:mt-8 [&>.bluesky-embed]:mb-0">
+                <div
+                  class="mt-8 markdown-body"
+                  dangerouslySetInnerHTML={{
+                    __html: render(post.value.content),
+                  }}
+                />
+              </div>
+            </article>
+          </div>
+        </div>
+      </Layout>
     </>
   );
 }

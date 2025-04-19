@@ -41,7 +41,7 @@ export function PostListItem({
     timeoutRef.current = setTimeout(() => {
       setIsHovered(false);
       setIsLeaving(false);
-    }, 300); // Match the animation duration
+    }, 300); // Match animation duration
   };
 
   return (
@@ -49,33 +49,41 @@ export function PostListItem({
       {isHovered && (
         <div
           className={cx(
-            "fixed inset-0 pointer-events-none z-0 overflow-hidden flex items-center",
+            "fixed inset-0 pointer-events-none z-0",
             isLeaving ? "animate-fade-out" : "animate-fade-in",
           )}
         >
-          <div className="absolute whitespace-nowrap animate-marquee font-serif font-medium uppercase overflow-visible flex items-center justify-center leading-none">
-            {Array(10).fill(post.title).join(" · ")}
+          <div className="h-full w-full pt-[120px] flex items-center justify-center">
+            <div className="whitespace-nowrap animate-marquee font-serif font-medium uppercase leading-[0.8] text-[20vw] opacity-[0.015] -rotate-12">
+              {Array(3).fill(post.title).join(" · ")}
+            </div>
           </div>
         </div>
       )}
       <a
         href={`/post/${rkey}`}
-        className="w-full group"
+        className="w-full group block"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <article className="w-full flex flex-row border-b items-stretch relative transition-color backdrop-blur-sm hover:bg-slate-700/5 dark:hover:bg-slate-200/10">
-          <div className="w-1.5 diagonal-pattern shrink-0 opacity-20 group-hover:opacity-100 transition-opacity" />
-          <div className="flex-1 py-2 px-4 z-10 relative">
-            <Title className="text-lg" level="h3">
+        <article className="w-full flex flex-row border-b items-stretch relative transition-colors duration-300 ease-[cubic-bezier(0.33,0,0.67,1)] backdrop-blur-sm hover:bg-slate-700/5 dark:hover:bg-slate-200/10">
+          <div className="w-1.5 diagonal-pattern shrink-0 opacity-20 group-hover:opacity-100 transition-opacity duration-300 ease-[cubic-bezier(0.33,0,0.67,1)]" />
+          <div className="flex-1 py-2 px-4 z-10 relative w-full">
+            <Title className="text-lg w-full" level="h3">
               {post.title}
             </Title>
             <PostInfo
               content={post.content}
               createdAt={post.createdAt}
-              className="text-xs mt-1"
-            >
-            </PostInfo>
+              className="text-xs mt-1 w-full"
+            />
+            <div className="grid transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.33,0,0.67,1)] grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100 mt-2">
+              <div className="overflow-hidden">
+                <p className="text-sm text-slate-600 dark:text-slate-300 line-clamp-3 break-words">
+                  {post.content.substring(0, 280)}
+                </p>
+              </div>
+            </div>
           </div>
         </article>
       </a>
