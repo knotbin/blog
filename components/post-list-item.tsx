@@ -53,9 +53,9 @@ export function PostListItem({
             isLeaving ? "animate-fade-out" : "animate-fade-in",
           )}
         >
-          <div className="h-full w-full pt-[120px] flex items-center justify-center">
-            <div className="whitespace-nowrap animate-marquee font-serif font-medium uppercase leading-[0.8] text-[20vw] opacity-[0.015] -rotate-12">
-              {Array(3).fill(post.title).join(" · ")}
+          <div className="h-full w-full pt-[120px] flex items-center overflow-hidden">
+            <div className="whitespace-nowrap animate-marquee font-serif font-medium uppercase leading-[0.8] text-[20vw] opacity-[0.015] -rotate-12 absolute left-0">
+              {Array(8).fill(post.title).join(" · ")}
             </div>
           </div>
         </div>
