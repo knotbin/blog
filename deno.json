@@ -23,6 +23,9 @@
   "imports": {
     "$fresh/": "https://deno.land/x/fresh@1.7.3/",
     "@deno/gfm": "jsr:@deno/gfm@^0.10.0",
+    "@preact-icons/cg": "jsr:@preact-icons/cg@^1.0.13",
+    "@preact-icons/fi": "jsr:@preact-icons/fi@^1.0.13",
+    "@tabler/icons-preact": "npm:@tabler/icons-preact@^3.31.0",
     "preact": "https://esm.sh/preact@10.22.0",
     "preact/": "https://esm.sh/preact@10.22.0/",
     "@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",

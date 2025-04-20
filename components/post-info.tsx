@@ -1,8 +1,21 @@
 import { date } from "../lib/date.ts";
 import { env } from "../lib/env.ts";
+import { CgTimelapse } from "jsr:@preact-icons/cg";
 
 import { Paragraph } from "./typography.tsx";
 import type { ComponentChildren } from "preact";
+import { h } from "preact";
+
+// Wrapper component for the icon to handle compatibility issues
+const TimeIcon = () => h(CgTimelapse, { size: 13 });
+
+// Calculate reading time based on content length
+function getReadingTime(content: string): number {
+  const wordsPerMinute = 200;
+  const words = content.trim().split(/\s+/).length;
+  const minutes = Math.max(1, Math.ceil(words / wordsPerMinute));
+  return minutes;
+}
 
 export function PostInfo({
   createdAt,
@@ -17,6 +30,8 @@ export function PostInfo({
   className?: string;
   children?: ComponentChildren;
 }) {
+  const readingTime = getReadingTime(content);
+  
   return (
     <Paragraph className={className}>
       {includeAuthor && (
@@ -33,8 +48,12 @@ export function PostInfo({
       {createdAt && (
         <>
           <time dateTime={createdAt}>{date(new Date(createdAt))}</time>
+          {" "}&middot;{" "}
         </>
       )}
+      <span >
+        <span style={{ lineHeight: 1, marginRight: '0.25rem' }}>{readingTime} min read</span>
+      </span>
       {children}
     </Paragraph>
   );

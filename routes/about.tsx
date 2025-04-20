@@ -11,7 +11,7 @@ export default function About() {
       <Layout>
         <div class="p-8 pb-20 gap-16 sm:p-20">
           <div class="max-w-[600px] mx-auto">
-            <Title class="font-serif-italic text-4xl sm:text-5xl lowercase mb-12">
+            <Title class="font-serif-italic text-`4xl sm:text-5xl lowercase mb-12">
               About
             </Title>
 

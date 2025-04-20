@@ -111,7 +111,7 @@ export default function BlogPage({ data: post }: PageProps<Post>) {
       <Head>
         <title>{post.value.title} — knotbin</title>
         <meta name="description" content="by Roscoe Rubin-Rottenberg" />
-        {/* Merge GFM’s default styles with our dark-mode overrides */}
+        {/* Merge GFM's default styles with our dark-mode overrides */}
         <style
           dangerouslySetInnerHTML={{ __html: CSS + transparentDarkModeCSS }}
         />
@@ -121,12 +121,6 @@ export default function BlogPage({ data: post }: PageProps<Post>) {
         <div class="p-8 pb-20 gap-16 sm:p-20">
           <link rel="alternate" href={post.uri} />
           <div class="max-w-[600px] mx-auto">
-            <a
-              href="/"
-              class="hover:underline hover:underline-offset-4 font-medium block mb-8"
-            >
-              Back
-            </a>
             <article class="w-full space-y-8">
               <div class="space-y-4 w-full">
                 <Title>{post.value.title}</Title>
@@ -134,7 +128,7 @@ export default function BlogPage({ data: post }: PageProps<Post>) {
                   content={post.value.content}
                   createdAt={post.value.createdAt}
                   includeAuthor
-                  class="text-sm"
+                  className="text-sm"
                 />
                 <div class="diagonal-pattern w-full h-3" />
               </div>
