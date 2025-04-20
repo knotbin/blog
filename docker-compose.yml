@@ -2,26 +2,14 @@ version: "3.8"
 services:
   deno-app:
     build: .
-    # Copy files from . to deno-code volume on start
-    entrypoint: >
-      sh -c "
-        echo 'Copying files from /src to /deno-dir...' &&
-        cp -R /src/. /deno-dir/ &&
-        echo 'Files copied. Contents of /deno-dir:' &&
-        ls -la /deno-dir/ &&
-        echo 'Running application...' &&
-        deno run -A /deno-dir/main.ts
-      "
-    # Mount source code as read-only at different path for copying
+    # Use named volume for persistent data
     volumes:
-      - .:/src:ro
-      - deno-code:/deno-dir
+      - deno_data:/app/data
     ports:
       - "8001:8000"
     environment:
       - DENO_ENV=production
 
 volumes:
-  deno-code:
-    # This ensures the volume is recreated each time
-    name: "deno-code-${COMPOSE_PROJECT_NAME:-default}"
+  deno_data:
+    name: "deno_data"

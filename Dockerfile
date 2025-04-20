@@ -2,21 +2,20 @@ FROM denoland/deno:ubuntu
 
 USER root
 
-WORKDIR /deno-dir/
-RUN chown -R deno:deno /deno-dir
+# Create and set up directory
+WORKDIR /app
+RUN chown -R deno:deno /app
 
-# We don't copy files here anymore - they will be copied at runtime
-# from the read-only mounted volume
+# Copy files at build time
+COPY . /app/
 
-# Cache dependencies
-RUN mkdir -p /src
-COPY deno.json /src/
-WORKDIR /src
-RUN deno cache -r deno.json
+# Ensure Deno user has write permissions
+RUN chown -R deno:deno /app
 
-# Switch back to deno-dir (our actual runtime directory)
-WORKDIR /deno-dir/
+# Switch to deno user for better security
+USER deno
 
 EXPOSE 8000
 
-# Command is now handled by docker-compose entrypoint
+# Run the application
+CMD ["run", "-A", "main.ts"]
