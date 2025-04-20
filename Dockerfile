@@ -15,6 +15,9 @@ RUN chown -R deno:deno /app
 # Switch to deno user for better security
 USER deno
 
+# Run the build step
+RUN deno task build
+
 EXPOSE 8000
 
 # Run the application
