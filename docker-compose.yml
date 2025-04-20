@@ -3,7 +3,7 @@ services:
   deno-app:
     build: .
     volumes:
-      - .:/deno-dir
+      - .:/deno-dir:ro
     ports:
       - "8001:8000"
     environment:
