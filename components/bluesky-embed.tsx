@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useState } from "npm:react";
+import { useEffect, useId, useState } from "preact/hooks";
 
 const EMBED_URL = "https://embed.bsky.app";
 
@@ -11,7 +11,7 @@ export function BlueskyPostEmbed({ uri }: { uri: string }) {
   useEffect(() => {
     const abortController = new AbortController();
     const { signal } = abortController;
-    window.addEventListener(
+    globalThis.addEventListener(
       "message",
       (event) => {
         if (event.origin !== EMBED_URL) {

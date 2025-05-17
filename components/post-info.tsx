@@ -1,13 +1,8 @@
 import { date } from "../lib/date.ts";
 import { env } from "../lib/env.ts";
-import { CgTimelapse } from "jsr:@preact-icons/cg";
 
 import { Paragraph } from "./typography.tsx";
 import type { ComponentChildren } from "preact";
-import { h } from "preact";
-
-// Wrapper component for the icon to handle compatibility issues
-const TimeIcon = () => h(CgTimelapse, { size: 13 });
 
 // Calculate reading time based on content length
 function getReadingTime(content: string): number {
