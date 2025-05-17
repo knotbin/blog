@@ -1,4 +1,4 @@
-import { h } from "preact/src/index.d.ts";
+import { h } from "preact";
 import { cx } from "../lib/cx.ts";
 
 export function Title({
