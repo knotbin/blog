@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'preact/hooks';
-import { AppBskyFeedDefs, type AppBskyFeedGetPostThread } from 'npm:@atproto/api';
-import { CommentOptions } from '../components/bsky-comments/types.tsx';
-import { PostSummary } from '../components/bsky-comments/PostSummary.tsx';
-import { Comment } from '../components/bsky-comments/Comment.tsx';
+import { useEffect, useState } from "preact/hooks";
+import {
+  AppBskyFeedDefs,
+  type AppBskyFeedGetPostThread,
+} from "npm:@atproto/api";
+import { CommentOptions } from "../components/bsky-comments/types.tsx";
+import { PostSummary } from "../components/bsky-comments/PostSummary.tsx";
+import { Comment } from "../components/bsky-comments/Comment.tsx";
 
 const getAtUri = (uri: string): string => {
-  if (!uri.startsWith('at://') && uri.includes('bsky.app/profile/')) {
+  if (!uri.startsWith("at://") && uri.includes("bsky.app/profile/")) {
     const match = uri.match(/profile\/([\w:.]+)\/post\/([\w]+)/);
     if (match) {
       const [, did, postId] = match;
@@ -16,9 +19,9 @@ const getAtUri = (uri: string): string => {
 };
 
 /**
-* This component displays a comment section for a post. 
-* It fetches the comments for a post and displays them in a threaded format.
-*/
+ * This component displays a comment section for a post.
+ * It fetches the comments for a post and displays them in a threaded format.
+ */
 export const CommentSection = ({
   uri: propUri,
   author,
@@ -26,7 +29,9 @@ export const CommentSection = ({
   commentFilters,
 }: CommentOptions): any => {
   const [uri, setUri] = useState<string | null>(null);
-  const [thread, setThread] = useState<AppBskyFeedDefs.ThreadViewPost | null>(null);
+  const [thread, setThread] = useState<AppBskyFeedDefs.ThreadViewPost | null>(
+    null,
+  );
   const [error, setError] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(5);
 
@@ -223,7 +228,7 @@ export const CommentSection = ({
 
   useEffect(() => {
     let isSubscribed = true;
-    
+
     const initializeUri = async () => {
       if (propUri) {
         setUri(propUri);
@@ -233,10 +238,13 @@ export const CommentSection = ({
       if (author) {
         try {
           const currentUrl = window.location.href;
-          const apiUrl = `https://public.api.bsky.app/xrpc/app.bsky.feed.searchPosts?q=*&url=${encodeURIComponent(
-            currentUrl
-          )}&author=${author}&sort=top`;
-          
+          const apiUrl =
+            `https://public.api.bsky.app/xrpc/app.bsky.feed.searchPosts?q=*&url=${
+              encodeURIComponent(
+                currentUrl,
+              )
+            }&author=${author}&sort=top`;
+
           const response = await fetch(apiUrl);
           const data = await response.json();
 
@@ -245,17 +253,23 @@ export const CommentSection = ({
               const post = data.posts[0];
               setUri(post.uri);
             } else {
-              setError('No matching post found');
+              setError("No matching post found");
               if (onEmpty) {
-                onEmpty({ code: 'not_found', message: 'No matching post found' });
+                onEmpty({
+                  code: "not_found",
+                  message: "No matching post found",
+                });
               }
             }
           }
         } catch (err) {
           if (isSubscribed) {
-            setError('Error fetching post');
+            setError("Error fetching post");
             if (onEmpty) {
-              onEmpty({ code: 'fetching_error', message: 'Error fetching post' });
+              onEmpty({
+                code: "fetching_error",
+                message: "Error fetching post",
+              });
             }
           }
         }
@@ -274,7 +288,7 @@ export const CommentSection = ({
 
     const fetchThreadData = async () => {
       if (!uri) return;
-      
+
       try {
         const thread = await getPostThread(uri);
         if (isSubscribed) {
@@ -282,11 +296,11 @@ export const CommentSection = ({
         }
       } catch (err) {
         if (isSubscribed) {
-          setError('Error loading comments');
+          setError("Error loading comments");
           if (onEmpty) {
             onEmpty({
-              code: 'comment_loading_error',
-              message: 'Error loading comments',
+              code: "comment_loading_error",
+              message: "Error loading comments",
             });
           }
         }
@@ -307,16 +321,26 @@ export const CommentSection = ({
   if (!uri) return null;
 
   if (error) {
-    return <div className="container"><style>{styles}</style><p className="errorText">{error}</p></div>;
+    return (
+      <div className="container">
+        <style>{styles}</style>
+        <p className="errorText">{error}</p>
+      </div>
+    );
   }
 
   if (!thread) {
-    return <div className="container"><style>{styles}</style><p className="loadingText">Loading comments...</p></div>;
+    return (
+      <div className="container">
+        <style>{styles}</style>
+        <p className="loadingText">Loading comments...</p>
+      </div>
+    );
   }
 
   let postUrl: string = uri;
-  if (uri.startsWith('at://')) {
-    const [, , did, _, rkey] = uri.split('/');
+  if (uri.startsWith("at://")) {
+    const [, , did, _, rkey] = uri.split("/");
     postUrl = `https://bsky.app/profile/${did}/post/${rkey}`;
   }
 
@@ -328,9 +352,9 @@ export const CommentSection = ({
       </div>
     );
   }
-  
+
   // Safe sort - ensure we're working with valid objects
-  const sortedReplies = [...thread.replies].filter(reply => 
+  const sortedReplies = [...thread.replies].filter((reply) =>
     AppBskyFeedDefs.isThreadViewPost(reply)
   ).sort(sortByLikes);
 
@@ -360,31 +384,33 @@ export const CommentSection = ({
   );
 };
 
-const getPostThread = async (uri: string): Promise<AppBskyFeedDefs.ThreadViewPost> => {
+const getPostThread = async (
+  uri: string,
+): Promise<AppBskyFeedDefs.ThreadViewPost> => {
   const atUri = getAtUri(uri);
   const params = new URLSearchParams({ uri: atUri });
 
   const res = await fetch(
-    'https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?' +
+    "https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?" +
       params.toString(),
     {
-      method: 'GET',
+      method: "GET",
       headers: {
-        Accept: 'application/json',
+        Accept: "application/json",
       },
-      cache: 'no-store',
-    }
+      cache: "no-store",
+    },
   );
 
   if (!res.ok) {
     console.error(await res.text());
-    throw new Error('Failed to fetch post thread');
+    throw new Error("Failed to fetch post thread");
   }
 
   const data = (await res.json()) as AppBskyFeedGetPostThread.OutputSchema;
 
   if (!AppBskyFeedDefs.isThreadViewPost(data.thread)) {
-    throw new Error('Could not find thread');
+    throw new Error("Could not find thread");
   }
 
   return data.thread;
@@ -394,8 +420,8 @@ const sortByLikes = (a: unknown, b: unknown) => {
   if (
     !AppBskyFeedDefs.isThreadViewPost(a) ||
     !AppBskyFeedDefs.isThreadViewPost(b) ||
-    !('post' in a) ||
-    !('post' in b)
+    !("post" in a) ||
+    !("post" in b)
   ) {
     return 0;
   }

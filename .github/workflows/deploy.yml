@@ -32,5 +32,3 @@ jobs:
           project: "roscoerubin-blog-23"
           entrypoint: "main.ts"
           root: "."
-          
-          

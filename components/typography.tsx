@@ -48,10 +48,17 @@ export function Paragraph({
   className,
   ...props
 }: h.JSX.HTMLAttributes<HTMLParagraphElement>) {
-  return <p className={cx("font-sans text-pretty", className?.toString())} {...props} />;
+  return (
+    <p
+      className={cx("font-sans text-pretty", className?.toString())}
+      {...props}
+    />
+  );
 }
 
-export function Code({ className, ...props }: h.JSX.HTMLAttributes<HTMLElement>) {
+export function Code(
+  { className, ...props }: h.JSX.HTMLAttributes<HTMLElement>,
+) {
   return (
     <code
       className={cx(

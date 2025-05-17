@@ -111,7 +111,10 @@ export default function BlogPage({ data: post }: PageProps<Post>) {
     <>
       <Head>
         <title>{post.value.title} — knotbin</title>
-        <meta name="description" content={post.value.subtitle || "by Roscoe Rubin-Rottenberg"} />
+        <meta
+          name="description"
+          content={post.value.subtitle || "by Roscoe Rubin-Rottenberg"}
+        />
         {/* Merge GFM's default styles with our dark-mode overrides */}
         <style
           dangerouslySetInnerHTML={{ __html: CSS + transparentDarkModeCSS }}

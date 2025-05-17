@@ -1,17 +1,23 @@
 import { bsky } from "./bsky.ts";
 import { env } from "./env.ts";
 
-import { type ComAtprotoRepoListRecords } from "npm:@atcute/client/lexicons";
+import { type ActorIdentifier } from "npm:@atcute/lexicons";
 import { type ComWhtwndBlogEntry } from "@atcute/whitewind";
+import { type ComAtprotoRepoListRecords } from "npm:@atcute/atproto";
 
 export async function getPosts() {
   const posts = await bsky.get("com.atproto.repo.listRecords", {
     params: {
-      repo: env.NEXT_PUBLIC_BSKY_DID,
+      repo: env.NEXT_PUBLIC_BSKY_DID as ActorIdentifier,
       collection: "com.whtwnd.blog.entry",
       // todo: pagination
     },
   });
+  
+  if ('error' in posts.data) {
+    throw new Error(posts.data.error);
+  }
+
   return posts.data.records.filter(
     drafts,
   ) as (ComAtprotoRepoListRecords.Record & {
@@ -28,7 +34,7 @@ function drafts(record: ComAtprotoRepoListRecords.Record) {
 export async function getPost(rkey: string) {
   const post = await bsky.get("com.atproto.repo.getRecord", {
     params: {
-      repo: env.NEXT_PUBLIC_BSKY_DID,
+      repo: env.NEXT_PUBLIC_BSKY_DID as ActorIdentifier,
       rkey: rkey,
       collection: "com.whtwnd.blog.entry",
     },

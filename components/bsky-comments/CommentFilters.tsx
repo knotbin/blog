@@ -1,16 +1,16 @@
-import { AppBskyFeedPost, type AppBskyFeedDefs } from 'npm:@atproto/api';
+import { type AppBskyFeedDefs, AppBskyFeedPost } from "npm:@atproto/api";
 
 const MinLikeCountFilter = (
-  min: number
-): ((comment: AppBskyFeedDefs.ThreadViewPost) => boolean) => {
+  min: number,
+): (comment: AppBskyFeedDefs.ThreadViewPost) => boolean => {
   return (comment: AppBskyFeedDefs.ThreadViewPost) => {
     return (comment.post.likeCount ?? 0) < min;
   };
 };
 
 const MinCharacterCountFilter = (
-  min: number
-): ((comment: AppBskyFeedDefs.ThreadViewPost) => boolean) => {
+  min: number,
+): (comment: AppBskyFeedDefs.ThreadViewPost) => boolean => {
   return (comment: AppBskyFeedDefs.ThreadViewPost) => {
     if (!AppBskyFeedPost.isRecord(comment.post.record)) {
       return false;
@@ -21,8 +21,8 @@ const MinCharacterCountFilter = (
 };
 
 const TextContainsFilter = (
-  text: string
-): ((comment: AppBskyFeedDefs.ThreadViewPost) => boolean) => {
+  text: string,
+): (comment: AppBskyFeedDefs.ThreadViewPost) => boolean => {
   return (comment: AppBskyFeedDefs.ThreadViewPost) => {
     if (!AppBskyFeedPost.isRecord(comment.post.record)) {
       return false;
@@ -33,8 +33,8 @@ const TextContainsFilter = (
 };
 
 const ExactMatchFilter = (
-  text: string
-): ((comment: AppBskyFeedDefs.ThreadViewPost) => boolean) => {
+  text: string,
+): (comment: AppBskyFeedDefs.ThreadViewPost) => boolean => {
   return (comment: AppBskyFeedDefs.ThreadViewPost) => {
     if (!AppBskyFeedPost.isRecord(comment.post.record)) {
       return false;
@@ -44,15 +44,23 @@ const ExactMatchFilter = (
   };
 };
 
-/* 
-* This function allows you to filter out comments based on likes,
-* characters, text, pins, or exact matches.
-*/
+/*
+ * This function allows you to filter out comments based on likes,
+ * characters, text, pins, or exact matches.
+ */
 export const Filters: {
-  MinLikeCountFilter: (min: number) => (comment: AppBskyFeedDefs.ThreadViewPost) => boolean;
-  MinCharacterCountFilter: (min: number) => (comment: AppBskyFeedDefs.ThreadViewPost) => boolean;
-  TextContainsFilter: (text: string) => (comment: AppBskyFeedDefs.ThreadViewPost) => boolean;
-  ExactMatchFilter: (text: string) => (comment: AppBskyFeedDefs.ThreadViewPost) => boolean;
+  MinLikeCountFilter: (
+    min: number,
+  ) => (comment: AppBskyFeedDefs.ThreadViewPost) => boolean;
+  MinCharacterCountFilter: (
+    min: number,
+  ) => (comment: AppBskyFeedDefs.ThreadViewPost) => boolean;
+  TextContainsFilter: (
+    text: string,
+  ) => (comment: AppBskyFeedDefs.ThreadViewPost) => boolean;
+  ExactMatchFilter: (
+    text: string,
+  ) => (comment: AppBskyFeedDefs.ThreadViewPost) => boolean;
   NoLikes: (comment: AppBskyFeedDefs.ThreadViewPost) => boolean;
   NoPins: (comment: AppBskyFeedDefs.ThreadViewPost) => boolean;
 } = {
@@ -61,7 +69,7 @@ export const Filters: {
   TextContainsFilter,
   ExactMatchFilter,
   NoLikes: MinLikeCountFilter(0),
-  NoPins: ExactMatchFilter('📌'),
+  NoPins: ExactMatchFilter("📌"),
 };
 
 export default Filters;

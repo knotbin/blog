@@ -7,7 +7,9 @@ interface PostRecord {
   uri: string;
 }
 
-export default function PostList({ posts: initialPosts }: { posts: PostRecord[] }) {
+export default function PostList(
+  { posts: initialPosts }: { posts: PostRecord[] },
+) {
   const posts = useSignal(initialPosts);
 
   useEffect(() => {

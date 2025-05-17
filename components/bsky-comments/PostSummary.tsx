@@ -1,4 +1,4 @@
-import { AppBskyFeedDefs } from 'npm:@atproto/api';
+import { AppBskyFeedDefs } from "npm:@atproto/api";
 
 type PostSummaryProps = {
   postUrl: string;
@@ -216,7 +216,7 @@ export const PostSummary = ({ postUrl, post }: PostSummaryProps) => {
       </a>
       <h2 className="commentsTitle">Comments</h2>
       <p className="replyText">
-        Join the conversation by{' '}
+        Join the conversation by{" "}
         <a
           className="link"
           href={postUrl}

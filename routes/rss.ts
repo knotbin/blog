@@ -21,21 +21,21 @@ export async function GET() {
   });
 
   for (const post of posts) {
-    const description = post.value.subtitle 
+    const description = post.value.subtitle
       ? `${post.value.subtitle}\n\n${await unified()
-          .use(remarkParse)
-          .use(remarkRehype)
-          .use(rehypeFormat)
-          .use(rehypeStringify)
-          .process(post.value.content)
-          .then((v) => v.toString())}`
+        .use(remarkParse)
+        .use(remarkRehype)
+        .use(rehypeFormat)
+        .use(rehypeStringify)
+        .process(post.value.content)
+        .then((v) => v.toString())}`
       : await unified()
-          .use(remarkParse)
-          .use(remarkRehype)
-          .use(rehypeFormat)
-          .use(rehypeStringify)
-          .process(post.value.content)
-          .then((v) => v.toString());
+        .use(remarkParse)
+        .use(remarkRehype)
+        .use(rehypeFormat)
+        .use(rehypeStringify)
+        .process(post.value.content)
+        .then((v) => v.toString());
 
     rss.item({
       title: post.value.title ?? "Untitled",

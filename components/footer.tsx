@@ -1,4 +1,7 @@
-import { siBluesky as BlueskyIcon, siGithub as GithubIcon } from "npm:simple-icons";
+import {
+  siBluesky as BlueskyIcon,
+  siGithub as GithubIcon,
+} from "npm:simple-icons";
 import { useState } from "preact/hooks";
 import { env } from "../lib/env.ts";
 
@@ -25,7 +28,9 @@ export function Footer() {
         >
           <path d={BlueskyIcon.path} />
         </svg>
-        <span class="opacity-50 group-hover:opacity-100 transition-opacity">Bluesky</span>
+        <span class="opacity-50 group-hover:opacity-100 transition-opacity">
+          Bluesky
+        </span>
         <div class="absolute bottom-0 left-0 w-full h-px bg-current scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out group-hover:origin-left group-data-[hovered=false]:origin-right" />
       </a>
       <a
@@ -45,7 +50,9 @@ export function Footer() {
         >
           <path d={GithubIcon.path} />
         </svg>
-        <span class="opacity-50 group-hover:opacity-100 transition-opacity">GitHub</span>
+        <span class="opacity-50 group-hover:opacity-100 transition-opacity">
+          GitHub
+        </span>
         <div class="absolute bottom-0 left-0 w-full h-px bg-current scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out group-hover:origin-left group-data-[hovered=false]:origin-right" />
       </a>
     </footer>

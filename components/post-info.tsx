@@ -31,7 +31,7 @@ export function PostInfo({
   children?: ComponentChildren;
 }) {
   const readingTime = getReadingTime(content);
-  
+
   return (
     <Paragraph className={className}>
       {includeAuthor && (
@@ -47,12 +47,14 @@ export function PostInfo({
       )}
       {createdAt && (
         <>
-          <time dateTime={createdAt}>{date(new Date(createdAt))}</time>
-          {" "}&middot;{" "}
+          <time dateTime={createdAt}>{date(new Date(createdAt))}</time>{" "}
+          &middot;{" "}
         </>
       )}
-      <span >
-        <span style={{ lineHeight: 1, marginRight: '0.25rem' }}>{readingTime} min read</span>
+      <span>
+        <span style={{ lineHeight: 1, marginRight: "0.25rem" }}>
+          {readingTime} min read
+        </span>
       </span>
       {children}
     </Paragraph>

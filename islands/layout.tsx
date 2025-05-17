@@ -42,9 +42,9 @@ export function Layout({ children }: { children: ComponentChildren }) {
               </a>
               <div class="h-4 w-px bg-slate-200 dark:bg-slate-700"></div>
               <div class="text-base flex items-center gap-7">
-                <a 
-                  href="/" 
-                  class="relative group" 
+                <a
+                  href="/"
+                  class="relative group"
                   data-current={isActive("/")}
                   data-hovered={blogHovered}
                   onMouseEnter={() => setBlogHovered(true)}

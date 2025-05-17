@@ -22,6 +22,8 @@
   ],
   "imports": {
     "$fresh/": "https://deno.land/x/fresh@1.7.3/",
+    "@atcute/atproto": "npm:@atcute/atproto@^3.0.1",
+    "@atcute/client": "npm:@atcute/client@^4.0.1",
     "@atcute/whitewind": "npm:@atcute/whitewind@^3.0.1",
     "@deno/gfm": "jsr:@deno/gfm@^0.10.0",
     "@preact-icons/cg": "jsr:@preact-icons/cg@^1.0.13",
@@ -31,6 +33,7 @@
     "preact/": "https://esm.sh/preact@10.22.0/",
     "@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
+    "rss": "npm:rss@^1.2.2",
     "tailwindcss": "npm:tailwindcss@3.4.1",
     "tailwindcss/": "npm:/tailwindcss@3.4.1/",
     "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js",

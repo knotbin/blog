@@ -1,4 +1,4 @@
-import { AppBskyFeedDefs, AppBskyFeedPost } from 'npm:@atproto/api';
+import { AppBskyFeedDefs, AppBskyFeedPost } from "npm:@atproto/api";
 
 type CommentProps = {
   comment: AppBskyFeedDefs.ThreadViewPost;
@@ -12,7 +12,6 @@ export const Comment = ({ comment, filters }: CommentProps) => {
   if (!AppBskyFeedPost.isRecord(comment.post.record)) return null;
   // filter out replies that match any of the commentFilters, by ensuring they all return false
   if (filters && !filters.every((filter) => !filter(comment))) return null;
-
 
   const styles = `
     .container {
@@ -173,24 +172,26 @@ export const Comment = ({ comment, filters }: CommentProps) => {
           target="_blank"
           rel="noreferrer noopener"
         >
-          {author.avatar ? (
-            <img
-              src={comment.post.author.avatar}
-              alt="avatar"
-              className={avatarClassName}
-            />
-          ) : (
-            <div className={avatarClassName} />
-          )}
+          {author.avatar
+            ? (
+              <img
+                src={comment.post.author.avatar}
+                alt="avatar"
+                className={avatarClassName}
+              />
+            )
+            : <div className={avatarClassName} />}
           <p className="authorName">
-            {author.displayName ?? author.handle}{' '}
+            {author.displayName ?? author.handle}{" "}
             <span className="handle">@{author.handle}</span>
           </p>
         </a>
         <a
-          href={`https://bsky.app/profile/${author.did}/post/${comment.post.uri
-            .split('/')
-            .pop()}`}
+          href={`https://bsky.app/profile/${author.did}/post/${
+            comment.post.uri
+              .split("/")
+              .pop()
+          }`}
           target="_blank"
           rel="noreferrer noopener"
         >
@@ -272,8 +273,8 @@ const sortByLikes = (a: unknown, b: unknown) => {
   if (
     !AppBskyFeedDefs.isThreadViewPost(a) ||
     !AppBskyFeedDefs.isThreadViewPost(b) ||
-    !('post' in a) ||
-    !('post' in b)
+    !("post" in a) ||
+    !("post" in b)
   ) {
     return 0;
   }
