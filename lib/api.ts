@@ -2,7 +2,7 @@ import { bsky } from "./bsky.ts";
 import { env } from "./env.ts";
 
 import { type ComAtprotoRepoListRecords } from "npm:@atcute/client/lexicons";
-import { type ComWhtwndBlogEntry } from "npm:@atcute/whitewind";
+import { type ComWhtwndBlogEntry } from "@atcute/whitewind";
 
 export async function getPosts() {
   const posts = await bsky.get("com.atproto.repo.listRecords", {

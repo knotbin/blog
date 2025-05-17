@@ -22,6 +22,7 @@
   ],
   "imports": {
     "$fresh/": "https://deno.land/x/fresh@1.7.3/",
+    "@atcute/whitewind": "npm:@atcute/whitewind@^3.0.1",
     "@deno/gfm": "jsr:@deno/gfm@^0.10.0",
     "@preact-icons/cg": "jsr:@preact-icons/cg@^1.0.13",
     "@preact-icons/fi": "jsr:@preact-icons/fi@^1.0.13",
