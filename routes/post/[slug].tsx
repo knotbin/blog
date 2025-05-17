@@ -11,10 +11,10 @@ import { Head } from "$fresh/runtime.ts";
 interface Post {
   uri: string;
   value: {
-    title: string;
+    title?: string;
     subtitle?: string;
-    content: string;
-    createdAt: string;
+    content?: string;
+    createdAt?: string;
   };
 }
 
@@ -127,15 +127,15 @@ export default function BlogPage({ data: post }: PageProps<Post>) {
           <div class="max-w-[600px] mx-auto">
             <article class="w-full space-y-8">
               <div class="space-y-4 w-full">
-                <Title>{post.value.title}</Title>
+                <Title>{post.value.title || 'Untitled'}</Title>
                 {post.value.subtitle && (
-                  <p class="text-xl text-slate-600 dark:text-slate-300 font-serif italic">
+                  <p class="text-2xl md:text-3xl font-serif leading-relaxed max-w-prose">
                     {post.value.subtitle}
                   </p>
                 )}
                 <PostInfo
-                  content={post.value.content}
-                  createdAt={post.value.createdAt}
+                  content={post.value.content || ''}
+                  createdAt={post.value.createdAt || new Date().toISOString()}
                   includeAuthor
                   className="text-sm"
                 />
@@ -146,7 +146,7 @@ export default function BlogPage({ data: post }: PageProps<Post>) {
                   class="mt-8 markdown-body"
                   // replace old pds url with new one for blob urls
                   dangerouslySetInnerHTML={{
-                    __html: render(post.value.content).replace(
+                    __html: render(post.value.content || '').replace(
                       /puffball\.us-east\.host\.bsky\.network/g,
                       "knotbin.xyz",
                     ),
