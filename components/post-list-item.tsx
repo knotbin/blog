@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "preact/hooks";
-import { ComWhtwndBlogEntry } from "npm:@atcute/client/whitewind";
+import { ComWhtwndBlogEntry } from "npm:@atcute/whitewind";
 
 import { cx } from "../lib/cx.ts";
 
@@ -12,7 +12,7 @@ export function PostListItem({
   post,
   rkey,
 }: {
-  post: ComWhtwndBlogEntry.Record;
+  post: ComWhtwndBlogEntry.Main;
   rkey: string;
 }) {
   const [isHovered, setIsHovered] = useState(false);
