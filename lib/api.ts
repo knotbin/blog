@@ -15,13 +15,13 @@ export async function getPosts() {
   return posts.data.records.filter(
     drafts,
   ) as (ComAtprotoRepoListRecords.Record & {
-    value: ComWhtwndBlogEntry.Record;
+    value: ComWhtwndBlogEntry.Main;
   })[];
 }
 
 function drafts(record: ComAtprotoRepoListRecords.Record) {
   if (Deno.env.get("NODE_ENV") === "development") return true;
-  const post = record.value as ComWhtwndBlogEntry.Record;
+  const post = record.value as ComWhtwndBlogEntry.Main;
   return post.visibility === "public";
 }
 
@@ -35,6 +35,6 @@ export async function getPost(rkey: string) {
   });
 
   return post.data as ComAtprotoRepoListRecords.Record & {
-    value: ComWhtwndBlogEntry.Record;
+    value: ComWhtwndBlogEntry.Main;
   };
 }
