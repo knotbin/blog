@@ -21,15 +21,25 @@ export async function GET() {
   });
 
   for (const post of posts) {
+    const description = post.value.subtitle 
+      ? `${post.value.subtitle}\n\n${await unified()
+          .use(remarkParse)
+          .use(remarkRehype)
+          .use(rehypeFormat)
+          .use(rehypeStringify)
+          .process(post.value.content)
+          .then((v) => v.toString())}`
+      : await unified()
+          .use(remarkParse)
+          .use(remarkRehype)
+          .use(rehypeFormat)
+          .use(rehypeStringify)
+          .process(post.value.content)
+          .then((v) => v.toString());
+
     rss.item({
       title: post.value.title ?? "Untitled",
-      description: await unified()
-        .use(remarkParse)
-        .use(remarkRehype)
-        .use(rehypeFormat)
-        .use(rehypeStringify)
-        .process(post.value.content)
-        .then((v) => v.toString()),
+      description,
       url: `https://knotbin.com/post/${post.uri.split("/").pop()}`,
       date: new Date(post.value.createdAt ?? Date.now()),
     });

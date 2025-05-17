@@ -12,6 +12,7 @@ interface Post {
   uri: string;
   value: {
     title: string;
+    subtitle?: string;
     content: string;
     createdAt: string;
   };
@@ -110,7 +111,7 @@ export default function BlogPage({ data: post }: PageProps<Post>) {
     <>
       <Head>
         <title>{post.value.title} — knotbin</title>
-        <meta name="description" content="by Roscoe Rubin-Rottenberg" />
+        <meta name="description" content={post.value.subtitle || "by Roscoe Rubin-Rottenberg"} />
         {/* Merge GFM's default styles with our dark-mode overrides */}
         <style
           dangerouslySetInnerHTML={{ __html: CSS + transparentDarkModeCSS }}
@@ -124,6 +125,11 @@ export default function BlogPage({ data: post }: PageProps<Post>) {
             <article class="w-full space-y-8">
               <div class="space-y-4 w-full">
                 <Title>{post.value.title}</Title>
+                {post.value.subtitle && (
+                  <p class="text-xl text-slate-600 dark:text-slate-300 font-serif italic">
+                    {post.value.subtitle}
+                  </p>
+                )}
                 <PostInfo
                   content={post.value.content}
                   createdAt={post.value.createdAt}

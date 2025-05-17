@@ -72,6 +72,11 @@ export function PostListItem({
             <Title className="text-lg w-full" level="h3">
               {post.title}
             </Title>
+            {post.subtitle && (
+              <p className="text-sm text-slate-600 dark:text-slate-300 font-serif italic line-clamp-2">
+                {post.subtitle}
+              </p>
+            )}
             <PostInfo
               content={post.content}
               createdAt={post.createdAt}
