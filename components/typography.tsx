@@ -35,7 +35,7 @@ export function Title({
   return (
     <Tag
       className={cx(
-        "font-serif font-bold text-balance tracking-wide scroll-m-20 uppercase mt-8 [&>code]:text-[length:inherit] first:mt-0",
+        "font-serif font-bold tracking-wide scroll-m-20 uppercase mt-8 [&>code]:text-[length:inherit] first:mt-0 break-words text-wrap",
         style,
         className?.toString(),
       )}

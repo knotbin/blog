@@ -8,7 +8,6 @@ import * as $about from "./routes/about.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $post_slug_ from "./routes/post/[slug].tsx";
 import * as $rss from "./routes/rss.ts";
-import * as $CommentSection from "./islands/CommentSection.tsx";
 import * as $layout from "./islands/layout.tsx";
 import * as $post_list from "./islands/post-list.tsx";
 import type { Manifest } from "$fresh/server.ts";
@@ -23,7 +22,6 @@ const manifest = {
     "./routes/rss.ts": $rss,
   },
   islands: {
-    "./islands/CommentSection.tsx": $CommentSection,
     "./islands/layout.tsx": $layout,
     "./islands/post-list.tsx": $post_list,
   },
