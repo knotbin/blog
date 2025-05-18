@@ -79,7 +79,7 @@ export function PostListItem({
             />
             <div className="grid transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.33,0,0.67,1)] grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100 mt-2">
               <div className="overflow-hidden">
-                <p className="text-sm line-clamp-3 break-words">
+                <p className="text-sm text-slate-600 dark:text-slate-300 line-clamp-3 break-words">
                   {post.content.substring(0, 280)}
                 </p>
               </div>
