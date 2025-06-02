@@ -1,19 +1,19 @@
 import { Footer } from "../components/footer.tsx";
 import type { ComponentChildren } from "preact";
 import { useEffect, useState } from "preact/hooks";
+import { useSignal } from "@preact/signals";
 
 export function Layout({ children }: { children: ComponentChildren }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [blogHovered, setBlogHovered] = useState(false);
   const [aboutHovered, setAboutHovered] = useState(false);
+  const pathname = useSignal("");
 
-  // Get current path to determine active nav item
-  const path = typeof window !== "undefined" ? window.location.pathname : "";
   const isActive = (href: string) => {
     if (href === "/") {
-      return path === "/" || path.startsWith("/post/");
+      return pathname.value === "/" || pathname.value.startsWith("/post/");
     }
-    return path === href;
+    return pathname.value === href;
   };
 
   useEffect(() => {
@@ -21,10 +21,19 @@ export function Layout({ children }: { children: ComponentChildren }) {
       setIsScrolled(window.scrollY > 0);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Check initial scroll position
+    const handlePathChange = () => {
+      pathname.value = window.location.pathname;
+    };
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("popstate", handlePathChange);
+    handleScroll(); // Check initial scroll position
+    handlePathChange(); // Set initial path
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("popstate", handlePathChange);
+    };
   }, []);
 
   return (

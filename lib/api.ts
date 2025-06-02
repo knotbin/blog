@@ -2,14 +2,14 @@ import { bsky } from "./bsky.ts";
 import { env } from "./env.ts";
 
 import { type ActorIdentifier } from "npm:@atcute/lexicons";
-import { type ComWhtwndBlogEntry } from "@atcute/whitewind";
 import { type ComAtprotoRepoListRecords } from "npm:@atcute/atproto";
+import { type PubLeafletDocument } from "npm:@atcute/leaflet";
 
 export async function getPosts() {
   const posts = await bsky.get("com.atproto.repo.listRecords", {
     params: {
       repo: env.NEXT_PUBLIC_BSKY_DID as ActorIdentifier,
-      collection: "com.whtwnd.blog.entry",
+      collection: "pub.leaflet.document",
       // todo: pagination
     },
   });
@@ -18,17 +18,9 @@ export async function getPosts() {
     throw new Error(posts.data.error);
   }
 
-  return posts.data.records.filter(
-    drafts,
-  ) as (ComAtprotoRepoListRecords.Record & {
-    value: ComWhtwndBlogEntry.Main;
+  return posts.data.records as (ComAtprotoRepoListRecords.Record & {
+    value: PubLeafletDocument.Main;
   })[];
-}
-
-function drafts(record: ComAtprotoRepoListRecords.Record) {
-  if (Deno.env.get("NODE_ENV") === "development") return true;
-  const post = record.value as ComWhtwndBlogEntry.Main;
-  return post.visibility === "public";
 }
 
 export async function getPost(rkey: string) {
@@ -36,11 +28,11 @@ export async function getPost(rkey: string) {
     params: {
       repo: env.NEXT_PUBLIC_BSKY_DID as ActorIdentifier,
       rkey: rkey,
-      collection: "com.whtwnd.blog.entry",
+      collection: "pub.leaflet.document",
     },
   });
 
   return post.data as ComAtprotoRepoListRecords.Record & {
-    value: ComWhtwndBlogEntry.Main;
+    value: PubLeafletDocument.Main;
   };
 }

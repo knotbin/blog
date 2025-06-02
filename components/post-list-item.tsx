@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "preact/hooks";
-import { ComWhtwndBlogEntry } from "npm:@atcute/whitewind";
+import { type PubLeafletDocument, type PubLeafletBlocksText } from "npm:@atcute/leaflet";
 
 import { cx } from "../lib/cx.ts";
 
@@ -12,7 +12,7 @@ export function PostListItem({
   post,
   rkey,
 }: {
-  post: ComWhtwndBlogEntry.Main;
+  post: PubLeafletDocument.Main;
   rkey: string;
 }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -44,6 +44,12 @@ export function PostListItem({
     }, 300); // Match animation duration
   };
 
+  // Gather all text blocks' plaintext for preview and reading time
+  const allText = post.pages?.[0]?.blocks
+    ?.filter(block => block.block.$type === "pub.leaflet.blocks.text")
+    .map(block => (block.block as PubLeafletBlocksText.Main).plaintext)
+    .join(" ") || "";
+
   return (
     <>
       {isHovered && (
@@ -73,14 +79,14 @@ export function PostListItem({
               {post.title}
             </Title>
             <PostInfo
-              content={post.content}
-              createdAt={post.createdAt}
+              content={allText}
+              createdAt={post.publishedAt}
               className="text-xs mt-1 w-full"
             />
             <div className="grid transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.33,0,0.67,1)] grid-rows-[0fr] group-hover:grid-rows-[1fr] opacity-0 group-hover:opacity-100 mt-2">
               <div className="overflow-hidden">
-                <p className="text-sm text-slate-600 dark:text-slate-300 line-clamp-3 break-words">
-                  {post.content.substring(0, 280)}
+                <p className="text-sm text-slate-600 dark:text-slate-300 break-words line-clamp-3">
+                  {allText}
                 </p>
               </div>
             </div>
