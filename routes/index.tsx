@@ -6,40 +6,8 @@ import { Layout } from "../islands/layout.tsx";
 export const dynamic = "force-static";
 export const revalidate = 3600; // 1 hour
 
-const stupidSelfDeprecatingTaglinesToTryToPretendImSelfAware = [
-  "is looking into it",
-  "i think therefore imdb",
-  "isn't a real word",
-  "enjoys each protocol equally",
-  "is having a very semantic argument",
-  "wrote these derivitive taglines",
-  "is way too into css animations",
-  "uses dark mode at noon",
-  "overthinks variable names",
-  "git pushes with -f",
-  "formats on save",
-  "is praising kier",
-  "pretends to understand monads",
-  "brags about their vim config",
-  "documents their code (lies)",
-  "isn't mysterious or important",
-  "wants to be included in discourse",
-  "is deeply offended by semicolons",
-  "is morraly opposed to touching grass",
-];
-
-function getRandomTagline() {
-  return stupidSelfDeprecatingTaglinesToTryToPretendImSelfAware[
-    Math.floor(
-      Math.random() *
-        stupidSelfDeprecatingTaglinesToTryToPretendImSelfAware.length,
-    )
-  ];
-}
-
 export default async function Home() {
   const posts = await getPosts();
-  const tagline = getRandomTagline();
 
   return (
     <Layout>

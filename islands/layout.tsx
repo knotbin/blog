@@ -6,6 +6,7 @@ import { useSignal } from "@preact/signals";
 export function Layout({ children }: { children: ComponentChildren }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [blogHovered, setBlogHovered] = useState(false);
+  const [workHovered, setWorkHovered] = useState(false);
   const [aboutHovered, setAboutHovered] = useState(false);
   const pathname = useSignal("");
 
@@ -18,21 +19,21 @@ export function Layout({ children }: { children: ComponentChildren }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
+      setIsScrolled(globalThis.scrollY > 0);
     };
 
     const handlePathChange = () => {
-      pathname.value = window.location.pathname;
+      pathname.value = globalThis.location.pathname;
     };
 
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("popstate", handlePathChange);
+    globalThis.addEventListener("scroll", handleScroll);
+    globalThis.addEventListener("popstate", handlePathChange);
     handleScroll(); // Check initial scroll position
     handlePathChange(); // Set initial path
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("popstate", handlePathChange);
+      globalThis.removeEventListener("scroll", handleScroll);
+      globalThis.removeEventListener("popstate", handlePathChange);
     };
   }, []);
 
@@ -61,6 +62,19 @@ export function Layout({ children }: { children: ComponentChildren }) {
                 >
                   <span class="opacity-50 group-hover:opacity-100 group-data-[current=true]:opacity-100 transition-opacity">
                     blog
+                  </span>
+                  <div class="absolute bottom-0 left-0 w-full h-px bg-current scale-x-0 group-hover:scale-x-100 group-data-[current=true]:scale-x-100 transition-transform duration-300 ease-in-out group-hover:origin-left group-data-[hovered=false]:origin-right" />
+                </a>
+                <a
+                  href="/work"
+                  class="relative group"
+                  data-current={isActive("/work")}
+                  data-hovered={workHovered}
+                  onMouseEnter={() => setWorkHovered(true)}
+                  onMouseLeave={() => setWorkHovered(false)}
+                >
+                  <span class="opacity-50 group-hover:opacity-100 group-data-[current=true]:opacity-100 transition-opacity">
+                    work
                   </span>
                   <div class="absolute bottom-0 left-0 w-full h-px bg-current scale-x-0 group-hover:scale-x-100 group-data-[current=true]:scale-x-100 transition-transform duration-300 ease-in-out group-hover:origin-left group-data-[hovered=false]:origin-right" />
                 </a>

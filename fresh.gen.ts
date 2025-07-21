@@ -9,8 +9,10 @@ import * as $api_atproto_images from "./routes/api/atproto_images.ts";
 import * as $index from "./routes/index.tsx";
 import * as $post_slug_ from "./routes/post/[slug].tsx";
 import * as $rss from "./routes/rss.ts";
+import * as $work from "./routes/work.tsx";
 import * as $layout from "./islands/layout.tsx";
 import * as $post_list from "./islands/post-list.tsx";
+import * as $project_list from "./islands/project-list.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -22,10 +24,12 @@ const manifest = {
     "./routes/index.tsx": $index,
     "./routes/post/[slug].tsx": $post_slug_,
     "./routes/rss.ts": $rss,
+    "./routes/work.tsx": $work,
   },
   islands: {
     "./islands/layout.tsx": $layout,
     "./islands/post-list.tsx": $post_list,
+    "./islands/project-list.tsx": $project_list,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

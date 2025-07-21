@@ -11,20 +11,15 @@
   },
   "lint": {
     "rules": {
-      "tags": [
-        "fresh",
-        "recommended"
-      ]
+      "tags": ["fresh", "recommended"]
     }
   },
-  "exclude": [
-    "**/_fresh/*"
-  ],
+  "exclude": ["**/_fresh/*"],
   "imports": {
     "$fresh/": "https://deno.land/x/fresh@1.7.3/",
     "@atcute/atproto": "npm:@atcute/atproto@^3.0.1",
     "@atcute/client": "npm:@atcute/client@^4.0.1",
-    "@atcute/whitewind": "npm:@atcute/whitewind@^3.0.1",
+    "@atcute/leaflet": "npm:@atcute/leaflet@^1.0.2",
     "@deno/gfm": "jsr:@deno/gfm@^0.10.0",
     "@preact-icons/cg": "jsr:@preact-icons/cg@^1.0.13",
     "@preact-icons/fi": "jsr:@preact-icons/fi@^1.0.13",

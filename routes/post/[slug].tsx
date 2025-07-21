@@ -1,4 +1,3 @@
-/** @jsxImportSource preact */
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { Layout } from "../../islands/layout.tsx";
 import { PostInfo } from "../../components/post-info.tsx";
@@ -49,13 +48,6 @@ function Block({
 }) {
   let b = block;
 
-  // Debug log to check for duplicate rendering
-  console.log(
-    "Rendering block",
-    b.block.$type,
-    (b.block as any).plaintext || (b.block as any).text || ""
-  );
-
   let className = `
     postBlockWrapper
     pt-1
@@ -67,12 +59,7 @@ function Block({
     return (
       <ul className="-ml-[1px] sm:ml-[9px] pb-2">
         {b.block.children.map((child, index) => (
-          <ListItem
-            item={child}
-            did={did}
-            key={index}
-            className={className}
-          />
+          <ListItem item={child} did={did} key={index} className={className} />
         ))}
       </ul>
     );
@@ -95,7 +82,9 @@ function Block({
         width={width}
         height={height}
         className={`!pt-3 sm:!pt-4 ${className}`}
-        style={{ aspectRatio: width && height ? `${width} / ${height}` : undefined }}
+        style={{
+          aspectRatio: width && height ? `${width} / ${height}` : undefined,
+        }}
       />
     );
   }
@@ -113,10 +102,11 @@ function Block({
     const level = header.level || 1;
     const Tag = `h${Math.min(level + 1, 6)}` as keyof h.JSX.IntrinsicElements;
     // Add heading styles based on level
-    let headingStyle = "font-serif font-bold tracking-wide uppercase mt-8 break-words text-wrap ";
+    let headingStyle =
+      "font-serif font-bold tracking-wide uppercase mt-8 break-words text-wrap ";
     switch (level) {
       case 1:
-        headingStyle += "text-4xl lg:text-5xl";
+        headingStyle += "text-3xl lg:text-4xl";
         break;
       case 2:
         headingStyle += "text-3xl border-b pb-2 mb-6";
@@ -137,7 +127,7 @@ function Block({
         headingStyle += "text-2xl";
     }
     return (
-      <Tag className={headingStyle + ' ' + className}>
+      <Tag className={headingStyle + " " + className}>
         <TextBlock plaintext={header.plaintext} facets={header.facets} />
       </Tag>
     );
@@ -187,17 +177,17 @@ export default function BlogPage({ data: post }: PageProps<Post>) {
   }
   // Deduplicate blocks by $type and plaintext
   const seen = new Set();
-  const uniqueBlocks = blocks.filter(b => {
-    const key = b.block.$type + '|' + ((b.block as any).plaintext || '');
+  const uniqueBlocks = blocks.filter((b) => {
+    const key = b.block.$type + "|" + ((b.block as any).plaintext || "");
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
   });
 
   const content = uniqueBlocks
-    .filter(b => b.block.$type === "pub.leaflet.blocks.text")
-    .map(b => (b.block as PubLeafletBlocksText.Main).plaintext)
-    .join(' ');
+    .filter((b) => b.block.$type === "pub.leaflet.blocks.text")
+    .map((b) => (b.block as PubLeafletBlocksText.Main).plaintext)
+    .join(" ");
 
   return (
     <>
@@ -215,9 +205,9 @@ export default function BlogPage({ data: post }: PageProps<Post>) {
           <div class="max-w-[600px] mx-auto">
             <article class="w-full space-y-8">
               <div class="space-y-4 w-full">
-                <Title>{post.value.title || 'Untitled'}</Title>
+                <Title>{post.value.title || "Untitled"}</Title>
                 {post.value.description && (
-                  <p class="text-2xl md:text-3xl font-serif leading-relaxed max-w-prose">
+                  <p class="text-xl italic md:text-2xl font-serif leading-relaxed max-w-prose">
                     {post.value.description}
                   </p>
                 )}
@@ -231,7 +221,11 @@ export default function BlogPage({ data: post }: PageProps<Post>) {
               </div>
               <div class="postContent flex flex-col">
                 {uniqueBlocks.map((block, index) => (
-                  <Block block={block} did={post.uri.split('/')[2]} key={index} />
+                  <Block
+                    block={block}
+                    did={post.uri.split("/")[2]}
+                    key={index}
+                  />
                 ))}
               </div>
             </article>

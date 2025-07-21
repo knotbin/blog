@@ -56,9 +56,10 @@ export function Paragraph({
   );
 }
 
-export function Code(
-  { className, ...props }: h.JSX.HTMLAttributes<HTMLElement>,
-) {
+export function Code({
+  className,
+  ...props
+}: h.JSX.HTMLAttributes<HTMLElement>) {
   return (
     <code
       className={cx(

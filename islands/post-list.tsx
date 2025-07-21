@@ -1,15 +1,18 @@
 import { useSignal } from "@preact/signals";
 import { useEffect } from "preact/hooks";
 import { PostListItem } from "../components/post-list-item.tsx";
+import { PubLeafletDocument } from "@atcute/leaflet";
 
 interface PostRecord {
-  value: any;
+  value: PubLeafletDocument.Main;
   uri: string;
 }
 
-export default function PostList(
-  { posts: initialPosts }: { posts: PostRecord[] },
-) {
+export default function PostList({
+  posts: initialPosts,
+}: {
+  posts: PostRecord[];
+}) {
   const posts = useSignal(initialPosts);
 
   useEffect(() => {
@@ -21,13 +24,7 @@ export default function PostList(
       {posts.value?.map((record) => {
         const post = record.value;
         const rkey = record.uri.split("/").pop() || "";
-        return (
-          <PostListItem
-            key={record.uri}
-            post={post}
-            rkey={rkey}
-          />
-        );
+        return <PostListItem key={record.uri} post={post} rkey={rkey} />;
       })}
     </>
   );
