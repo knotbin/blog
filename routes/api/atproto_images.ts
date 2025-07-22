@@ -14,12 +14,15 @@ export const handler: Handlers = {
     }
 
     const identity = await idResolver.did.resolve(did);
-    const service = identity?.service?.find((f: any) => f.id === "#atproto_pds");
+    const service = identity?.service?.find((f: any) =>
+      f.id === "#atproto_pds"
+    );
     if (!service) {
       return new Response("No PDS service found", { status: 404 });
     }
 
-    const blobUrl = `${service.serviceEndpoint}/xrpc/com.atproto.sync.getBlob?did=${did}&cid=${cid}`;
+    const blobUrl =
+      `${service.serviceEndpoint}/xrpc/com.atproto.sync.getBlob?did=${did}&cid=${cid}`;
     const response = await fetch(blobUrl);
 
     if (!response.ok) {
@@ -35,4 +38,4 @@ export const handler: Handlers = {
 
     return cachedResponse;
   },
-}; 
+};

@@ -13,8 +13,8 @@ export async function getPosts() {
       // todo: pagination
     },
   });
-  
-  if ('error' in posts.data) {
+
+  if ("error" in posts.data) {
     throw new Error(posts.data.error);
   }
 

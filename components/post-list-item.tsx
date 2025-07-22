@@ -1,7 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "preact/hooks";
-import { type PubLeafletDocument, type PubLeafletBlocksText } from "npm:@atcute/leaflet";
+import {
+  type PubLeafletBlocksText,
+  type PubLeafletDocument,
+} from "npm:@atcute/leaflet";
 
 import { cx } from "../lib/cx.ts";
 
@@ -46,8 +49,8 @@ export function PostListItem({
 
   // Gather all text blocks' plaintext for preview and reading time
   const allText = post.pages?.[0]?.blocks
-    ?.filter(block => block.block.$type === "pub.leaflet.blocks.text")
-    .map(block => (block.block as PubLeafletBlocksText.Main).plaintext)
+    ?.filter((block) => block.block.$type === "pub.leaflet.blocks.text")
+    .map((block) => (block.block as PubLeafletBlocksText.Main).plaintext)
     .join(" ") || "";
 
   return (

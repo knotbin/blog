@@ -51,8 +51,18 @@ function Block({
   let className = `
     postBlockWrapper
     pt-1
-    ${isList ? "isListItem pb-0 " : "pb-2 last:pb-3 last:sm:pb-4 first:pt-2 sm:first:pt-3"}
-    ${b.alignment === "lex:pub.leaflet.pages.linearDocument#textAlignRight" ? "text-right" : b.alignment === "lex:pub.leaflet.pages.linearDocument#textAlignCenter" ? "text-center" : ""}
+    ${
+    isList
+      ? "isListItem pb-0 "
+      : "pb-2 last:pb-3 last:sm:pb-4 first:pt-2 sm:first:pt-3"
+  }
+    ${
+    b.alignment === "lex:pub.leaflet.pages.linearDocument#textAlignRight"
+      ? "text-right"
+      : b.alignment === "lex:pub.leaflet.pages.linearDocument#textAlignCenter"
+      ? "text-center"
+      : ""
+  }
     `;
 
   if (b.block.$type === "pub.leaflet.blocks.unorderedList") {
@@ -148,18 +158,20 @@ function ListItem(props: {
       />
       <div className="flex flex-col">
         <Block block={{ block: props.item.content }} did={props.did} isList />
-        {props.item.children?.length ? (
-          <ul className="-ml-[7px] sm:ml-[7px]">
-            {props.item.children.map((child, index) => (
-              <ListItem
-                item={child}
-                did={props.did}
-                key={index}
-                className={props.className}
-              />
-            ))}
-          </ul>
-        ) : null}
+        {props.item.children?.length
+          ? (
+            <ul className="-ml-[7px] sm:ml-[7px]">
+              {props.item.children.map((child, index) => (
+                <ListItem
+                  item={child}
+                  did={props.did}
+                  key={index}
+                  className={props.className}
+                />
+              ))}
+            </ul>
+          )
+          : null}
       </div>
     </li>
   );

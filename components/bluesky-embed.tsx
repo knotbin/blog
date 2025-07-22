@@ -51,7 +51,9 @@ export function BlueskyPostEmbed({ uri }: { uri: string }) {
         className="w-full block border-none grow"
         style={{ height }}
         data-bluesky-uri={uri}
-        src={`${EMBED_URL}/embed/${uri.slice("at://".length)}?${searchParams.toString()}`}
+        src={`${EMBED_URL}/embed/${
+          uri.slice("at://".length)
+        }?${searchParams.toString()}`}
         width="100%"
         frameBorder="0"
         scrolling="no"
