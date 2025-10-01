@@ -1,12 +1,12 @@
-@import url("https://api.fonts.coollabs.io/css2?family=Inter:wght@400;700&display=swap");
-@import url("https://api.fonts.coollabs.io/css2?family=Libre+Bodoni:ital,wght@0,400;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,400..700;1,400..700&display=swap");
 @font-face {
-  font-family: "Berkeley Mono";
-  src:
-    url("/path/to/local/fonts/BerkeleyMono-Regular.woff2") format("woff2"),
-    url("/path/to/local/fonts/BerkeleyMono-Regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
+    font-family: "Berkeley Mono";
+    src:
+        url("/path/to/local/fonts/BerkeleyMono-Regular.woff2") format("woff2"),
+        url("/path/to/local/fonts/BerkeleyMono-Regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
 }
 
 @tailwind base;
@@ -14,28 +14,28 @@
 @tailwind utilities;
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
 }
 
 :root {
-  --font-sans: "Inter", sans-serif;
-  --font-serif: "Libre Bodoni", serif;
-  --font-mono: "Berkeley Mono", monospace;
+    --font-sans: "Inter", sans-serif;
+    --font-serif: "Libre Bodoni", serif;
+    --font-mono: "Berkeley Mono", monospace;
 }
 
 .font-sans {
-  font-family: var(--font-sans);
+    font-family: var(--font-sans);
 }
 .font-serif {
-  font-family: var(--font-serif);
+    font-family: var(--font-serif);
 }
 .font-mono {
-  font-family: var(--font-mono);
+    font-family: var(--font-mono);
 }
 .font-serif-italic {
-  font-family: var(--font-serif);
-  font-style: italic;
+    font-family: var(--font-serif);
+    font-style: italic;
 }
 
 /*
@@ -47,110 +47,110 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
 }
 
 @utility text-balance {
-  text-wrap: balance;
+    text-wrap: balance;
 }
 
 @layer utilities {
-  :root {
-    --background: #ffffff;
-    --foreground: #171717;
-  }
-
-  @media (prefers-color-scheme: dark) {
     :root {
-      --background: #0a0a0a;
-      --foreground: #ededed;
+        --background: #ffffff;
+        --foreground: #171717;
     }
-  }
 
-  body {
-    color: var(--foreground);
-    background: var(--background);
-    font-family: var(--font-sans);
-  }
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --background: #0a0a0a;
+            --foreground: #ededed;
+        }
+    }
 
-  @keyframes marquee {
-    0% {
-      opacity: 0;
-      transform: translateX(0px);
+    body {
+        color: var(--foreground);
+        background: var(--background);
+        font-family: var(--font-sans);
     }
-    2% {
-      opacity: 0.075;
-    }
-    98% {
-      opacity: 0.075;
-    }
-    100% {
-      opacity: 0;
-      transform: translateX(-4000px);
-    }
-  }
 
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
+    @keyframes marquee {
+        0% {
+            opacity: 0;
+            transform: translateX(0px);
+        }
+        2% {
+            opacity: 0.075;
+        }
+        98% {
+            opacity: 0.075;
+        }
+        100% {
+            opacity: 0;
+            transform: translateX(-4000px);
+        }
     }
-    100% {
-      opacity: 1;
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
     }
-  }
 
-  @keyframes fadeOut {
-    0% {
-      opacity: 1;
+    @keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
     }
-    100% {
-      opacity: 0;
+
+    .animate-marquee {
+        animation: marquee 30s linear infinite;
+        font-size: 100vh;
+        line-height: 0.8;
+        height: 100vh;
+        display: flex;
+        align-items: center;
     }
-  }
 
-  .animate-marquee {
-    animation: marquee 30s linear infinite;
-    font-size: 100vh;
-    line-height: 0.8;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-  }
+    .animate-fade-in {
+        animation: fadeIn 0.3s ease-in-out forwards;
+    }
 
-  .animate-fade-in {
-    animation: fadeIn 0.3s ease-in-out forwards;
-  }
-
-  .animate-fade-out {
-    animation: fadeOut 0.3s ease-in-out forwards;
-  }
+    .animate-fade-out {
+        animation: fadeOut 0.3s ease-in-out forwards;
+    }
 }
 
 .diagonal-pattern {
-  background-color: transparent;
-  background: repeating-linear-gradient(
-    -45deg,
-    #000000,
-    #000000 4px,
-    transparent 4px,
-    transparent 10px
-  );
+    background-color: transparent;
+    background: repeating-linear-gradient(
+        -45deg,
+        #000000,
+        #000000 4px,
+        transparent 4px,
+        transparent 10px
+    );
 }
 
 @media (prefers-color-scheme: dark) {
-  .diagonal-pattern {
-    background: repeating-linear-gradient(
-      -45deg,
-      #ffffff,
-      #ffffff 4px,
-      transparent 4px,
-      transparent 10px
-    );
-  }
+    .diagonal-pattern {
+        background: repeating-linear-gradient(
+            -45deg,
+            #ffffff,
+            #ffffff 4px,
+            transparent 4px,
+            transparent 10px
+        );
+    }
 }
