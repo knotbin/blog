@@ -1,11 +1,6 @@
-import rehypeFormat from "npm:rehype-format";
-import rehypeStringify from "npm:rehype-stringify";
-import remarkParse from "npm:remark-parse";
-import remarkRehype from "npm:remark-rehype";
-import RSS from "npm:rss";
-import { unified } from "npm:unified";
+import RSS from "rss";
 
-import { getPosts } from "../lib/api.ts";
+import { getDocumentPlaintext, getPosts } from "../lib/api.ts";
 
 export const dynamic = "force-static";
 export const revalidate = 3600; // 1 hour
@@ -21,27 +16,16 @@ export async function GET() {
   });
 
   for (const post of posts) {
-    const description = post.value.subtitle
-      ? `${post.value.subtitle}\n\n${await unified()
-        .use(remarkParse)
-        .use(remarkRehype)
-        .use(rehypeFormat)
-        .use(rehypeStringify)
-        .process(post.value.content)
-        .then((v) => v.toString())}`
-      : await unified()
-        .use(remarkParse)
-        .use(remarkRehype)
-        .use(rehypeFormat)
-        .use(rehypeStringify)
-        .process(post.value.content)
-        .then((v) => v.toString());
+    const plaintext = getDocumentPlaintext(post.value);
+    const description = post.value.description
+      ? `${post.value.description}\n\n${plaintext}`
+      : plaintext;
 
     rss.item({
       title: post.value.title ?? "Untitled",
       description,
       url: `https://knotbin.com/post/${post.uri.split("/").pop()}`,
-      date: new Date(post.value.createdAt ?? Date.now()),
+      date: new Date(post.value.publishedAt ?? Date.now()),
     });
   }
 

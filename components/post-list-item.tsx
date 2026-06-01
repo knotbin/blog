@@ -1,12 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "preact/hooks";
-import {
-  type PubLeafletBlocksText,
-  type PubLeafletDocument,
-} from "npm:@atcute/leaflet";
 
 import { cx } from "../lib/cx.ts";
+import { getDocumentPlaintext, type StandardSiteDocument } from "../lib/api.ts";
 
 import { PostInfo } from "./post-info.tsx";
 import { Title } from "./typography.tsx";
@@ -15,7 +12,7 @@ export function PostListItem({
   post,
   rkey,
 }: {
-  post: PubLeafletDocument.Main;
+  post: StandardSiteDocument;
   rkey: string;
 }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -47,11 +44,7 @@ export function PostListItem({
     }, 300); // Match animation duration
   };
 
-  // Gather all text blocks' plaintext for preview and reading time
-  const allText = post.pages?.[0]?.blocks
-    ?.filter((block) => block.block.$type === "pub.leaflet.blocks.text")
-    .map((block) => (block.block as PubLeafletBlocksText.Main).plaintext)
-    .join(" ") || "";
+  const allText = getDocumentPlaintext(post);
 
   return (
     <>

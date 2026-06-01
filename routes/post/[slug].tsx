@@ -2,29 +2,24 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import { Layout } from "../../islands/layout.tsx";
 import { PostInfo } from "../../components/post-info.tsx";
 import { Title } from "../../components/typography.tsx";
-import { getPost } from "../../lib/api.ts";
+import {
+  getDocumentPlaintext,
+  getPost,
+  type PostRecord,
+} from "../../lib/api.ts";
 import { Head } from "$fresh/runtime.ts";
 import { TextBlock } from "../../components/TextBlock.tsx";
 import {
+  PubLeafletBlocksBlockquote,
+  PubLeafletBlocksCode,
   PubLeafletBlocksHeader,
   PubLeafletBlocksImage,
-  PubLeafletBlocksText,
   PubLeafletBlocksUnorderedList,
   PubLeafletPagesLinearDocument,
-} from "npm:@atcute/leaflet";
+} from "@atcute/leaflet";
 import { h } from "preact";
 
-interface Post {
-  uri: string;
-  value: {
-    title?: string;
-    description?: string;
-    pages?: PubLeafletPagesLinearDocument.Main[];
-    publishedAt?: string;
-  };
-}
-
-export const handler: Handlers<Post> = {
+export const handler: Handlers<PostRecord> = {
   async GET(_req, ctx) {
     try {
       const { slug } = ctx.params;
@@ -46,9 +41,9 @@ function Block({
   did: string;
   isList?: boolean;
 }) {
-  let b = block;
+  const b = block;
 
-  let className = `
+  const className = `
     postBlockWrapper
     pt-1
     ${
@@ -103,6 +98,35 @@ function Block({
     return (
       <div className={` ${className}`}>
         <TextBlock facets={b.block.facets} plaintext={b.block.plaintext} />
+      </div>
+    );
+  }
+
+  if (b.block.$type === "pub.leaflet.blocks.blockquote") {
+    const blockquote = b.block as PubLeafletBlocksBlockquote.Main;
+    return (
+      <blockquote
+        className={`my-3 border-l-4 border-secondary/60 pl-4 sm:pl-5 font-serif text-xl italic leading-relaxed text-slate-700 dark:text-slate-200 ${className}`}
+      >
+        <TextBlock
+          facets={blockquote.facets}
+          plaintext={blockquote.plaintext}
+        />
+      </blockquote>
+    );
+  }
+
+  if (b.block.$type === "pub.leaflet.blocks.code") {
+    const codeBlock = b.block as PubLeafletBlocksCode.Main;
+    const language = codeBlock.language?.trim();
+
+    return (
+      <div className={className}>
+        <pre className="my-3 overflow-x-auto rounded-md border border-slate-200 bg-slate-950 p-4 text-left text-sm leading-relaxed text-slate-100 dark:border-slate-700 dark:bg-slate-900">
+          <code className="font-mono" data-language={language || undefined}>
+            {codeBlock.plaintext}
+          </code>
+        </pre>
       </div>
     );
   }
@@ -177,12 +201,17 @@ function ListItem(props: {
   );
 }
 
-export default function BlogPage({ data: post }: PageProps<Post>) {
+function getBlockPlaintext(block: PubLeafletPagesLinearDocument.Block) {
+  const value = (block.block as { plaintext?: unknown }).plaintext;
+  return typeof value === "string" ? value : "";
+}
+
+export default function BlogPage({ data: post }: PageProps<PostRecord>) {
   if (!post) {
     return <div>Post not found</div>;
   }
 
-  const firstPage = post.value.pages?.[0];
+  const firstPage = post.value.content?.pages?.[0];
   let blocks: PubLeafletPagesLinearDocument.Block[] = [];
   if (firstPage?.$type === "pub.leaflet.pages.linearDocument") {
     blocks = firstPage.blocks || [];
@@ -190,16 +219,13 @@ export default function BlogPage({ data: post }: PageProps<Post>) {
   // Deduplicate blocks by $type and plaintext
   const seen = new Set();
   const uniqueBlocks = blocks.filter((b) => {
-    const key = b.block.$type + "|" + ((b.block as any).plaintext || "");
+    const key = b.block.$type + "|" + getBlockPlaintext(b);
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
   });
 
-  const content = uniqueBlocks
-    .filter((b) => b.block.$type === "pub.leaflet.blocks.text")
-    .map((b) => (b.block as PubLeafletBlocksText.Main).plaintext)
-    .join(" ");
+  const content = getDocumentPlaintext(post.value);
 
   return (
     <>

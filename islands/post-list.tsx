@@ -1,12 +1,7 @@
 import { useSignal } from "@preact/signals";
 import { useEffect } from "preact/hooks";
 import { PostListItem } from "../components/post-list-item.tsx";
-import { PubLeafletDocument } from "@atcute/leaflet";
-
-interface PostRecord {
-  value: PubLeafletDocument.Main;
-  uri: string;
-}
+import { type PostRecord } from "../lib/api.ts";
 
 export default function PostList({
   posts: initialPosts,
